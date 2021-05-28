@@ -8,6 +8,7 @@
 % Matlab versión 2020b
 %%%%%%%%%%%%%%%%%%%%%
 a=0;
+b=0;
 clc;
 clear;
 close all;
