@@ -3,20 +3,18 @@ clear;
 close all;
 
 
-filename = 'P4.jpg';
-
 % Ruta del directorio de destino
-path = 'C:\Users\Andres\Documents\ProyectoInvestigacion\ProyectoOdontologia\';
+path = 'C:\Users\Andres\Documents\ProyectoInvestigacion\ProyectoOdontologia\TestImages\';
 
 % Lee la imagen
 % im1 = imread([path,'P4bmask.jpg']);
 % im2 = imread([path,'P4mask.jpg']);
-im1 = imread([path,'Imagen1.jpg']);
-im2 = imread([path,'Imagen2.jpg']);
-
-im1 = rgb2gray(im1);
-im2 = rgb2gray(im2);
-
+im1 = imread([path,'ImgTest1.jpg']);
+im2 = imread([path,'ImgTest3.jpg']);
+try
+    im1 = rgb2gray(im1);
+    im2 = rgb2gray(im2);
+end
 %%
 im3=im2;
 
@@ -58,9 +56,13 @@ imoverlay=labeloverlay(kk,imBW2,'Colormap',[blue;green],'Transparency',0.6);
 
 
 
-figure, 
+figure(1), 
 subplot(1,3,1), imshow(imBW1,[]), title ('Segm1')
 subplot(1,3,2), imshow(imBW2,[]), title ('Segm2')
 subplot(1,3,3), imshow(imoverlay,[]),
 pp=['IoU: ','0.' int2str(IoU*100)]
+% title(pp)
+
+figure(2),
+imshow(imoverlay)
 title(pp)
