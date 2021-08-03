@@ -7,10 +7,9 @@ close all;
 path = 'C:\Users\Andres\Documents\ProyectoInvestigacion\ProyectoOdontologia\TestImages\';
 
 % Lee la imagen
-% im1 = imread([path,'P4bmask.jpg']);
-% im2 = imread([path,'P4mask.jpg']);
 im1 = imread([path,'ImgTest1.jpg']);
 im2 = imread([path,'ImgTest3.jpg']);
+
 try
     im1 = rgb2gray(im1);
     im2 = rgb2gray(im2);
