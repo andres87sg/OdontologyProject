@@ -30,6 +30,8 @@ im1 = rgb2gray(im1);
 
 imzoom = im1;
 
+im_out = graph_grid(imzoom,200,1,'-r')
+
 condition=true;
     
     while condition
@@ -37,6 +39,34 @@ condition=true;
         %figure(2), 
         imshow(imzoom,[],'InitialMagnification','fit'), grid on,
         title(['Rx Paciente: ',filename]);
+        
+        [m,n] = size(imzoom);
+        winsize = 200;
+        color = 'r'
+        
+        col=floor(n/winsize);
+        row=floor(m/winsize);
+
+        %im_in=imcrop(im_in,[1 1 winsize*col-1 winsize*row-1]);
+        
+        for j=1:col
+
+            % Grafica lineas verticales
+            y=[1 m];
+            x=[j*winsize j*winsize];
+            hold on; plot(x,y,color);
+
+        end
+
+        for i=1:row
+            % Grafica lineas horizontales
+            x=[1 n];
+            y=[i*winsize i*winsize];
+            hold on; plot(x,y,color);
+        end
+        
+        
+        
         im1_freehand =  drawfreehand(gca);
         
         % Crea una máscara de segmentación en la imágen "imzoom"
@@ -100,6 +130,44 @@ condition=true;
     imwrite(maskdilate,[destpath,filename,'maskdilate.jpg'])
     imwrite(maskerode,[destpath,filename,'maskerode.jpg'])
     disp(['Se ha guardado la imagen de ', filename,' en el directorio'])
+    
+function im_out=graph_grid(im_in,patchsize,esc,color)
+
+
+    [m,n] = size(im_in);
+
+    % tam_vent=200;    % El tamaño real es 10 veces más (2000 pix)
+
+    winsize=patchsize/esc;
+
+    col=floor(n/winsize);
+    row=floor(m/winsize);
+
+    im_in=imcrop(im_in,[1 1 winsize*col-1 winsize*row-1]);
+    % figure(1);
+    im_out=imshow(im_in,[],'InitialMagnification','fit');
+
+    hold on;
+
+        for j=1:col
+
+            % Grafica lineas verticales
+            y=[1 m];
+            x=[j*winsize j*winsize];
+            hold on; plot(x,y,color);
+
+        end
+
+        for i=1:row
+            % Grafica lineas horizontales
+            x=[1 n];
+            y=[i*winsize i*winsize];
+            hold on; plot(x,y,color);
+        end
+
+end
+
+
         
  
 
