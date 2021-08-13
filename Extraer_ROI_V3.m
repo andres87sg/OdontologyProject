@@ -100,6 +100,7 @@ condition=true;
     imwrite(maskdilate,[destpath,filename,'maskdilate.jpg'])
     imwrite(maskerode,[destpath,filename,'maskerode.jpg'])
     disp(['Se ha guardado la imagen de ', filename,' en el directorio'])
+    
         
  
 
