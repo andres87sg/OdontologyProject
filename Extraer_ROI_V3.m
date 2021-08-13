@@ -30,6 +30,8 @@ im1 = rgb2gray(im1);
 
 imzoom = im1;
 
+graph_grid(imzoom,200,1,'r')
+
 condition=true;
     
     while condition
