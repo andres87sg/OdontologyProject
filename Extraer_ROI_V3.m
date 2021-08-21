@@ -30,7 +30,7 @@ im1 = rgb2gray(im1);
 
 imzoom = im1;
 
-im_out = graph_grid(imzoom,200,1,'-r')
+im_out = graph_grid(imzoom,200,1,'-r');
 
 condition=true;
     
@@ -41,8 +41,8 @@ condition=true;
         title(['Rx Paciente: ',filename]);
         
         [m,n] = size(imzoom);
-        winsize = 200;
-        color = 'r'
+        winsize = 100;
+        color = 'r';
         
         col=floor(n/winsize);
         row=floor(m/winsize);
