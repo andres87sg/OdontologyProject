@@ -22,6 +22,9 @@ filename = 'P4.jpg';
 % Ruta del directorio de destino
 destpath = '.\Segmentaciones\';
 
+% Experto
+evaluador = 'exp1';
+
 % Lee la imagen
 im1 = imread([path,filename]);
 
@@ -40,7 +43,7 @@ condition=true;
         figure('units','normalized','outerposition',[0 0 1 1]),
         %figure(2), 
         imshow(imzoom,[],'InitialMagnification','fit'), grid on,
-        title(['Rx Paciente: ',filename]);
+        title(['Rx Paciente: ',filename,' Evaluador: ', evaluador]);
         
         [m,n] = size(imzoom);
         winsize = 100;
@@ -117,11 +120,11 @@ condition=true;
         
         side = 'Segmentación Izquierda o Derecha (Izquierda[1] / Derecha[0])';
         condition_side = input(side);
-        if condition==1
+        if condition_side==1
             disp("La segmentación es del lado izquierdo");
             sidevar = 'Izq';
         end
-        if condition==0
+        if condition_side==0
             disp("La segmentación es del lado derecho");
             sidevar = 'Der';
         end
@@ -135,7 +138,7 @@ condition=true;
     end
         
     % Nombre del archivo
-    filename = [filename(1:length(filename)-4),'_',sidevar];
+    filename = [filename(1:length(filename)-4),'_',sidevar,'_',evaluador,'_'];
 
     imwrite(maskoverlay,[destpath,filename,'imzoom.jpg'])
     imwrite(mask,[destpath,filename,'mask.jpg'])
