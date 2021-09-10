@@ -20,7 +20,7 @@ path = 'C:\Users\Andres\Documents\Maestria UN\En proceso\Programas_Tesis_Maestri
 filename = 'P4.jpg';
 
 % Ruta del directorio de destino
-destpath = 'C:\Users\Andres\Documents\Maestria UN\En proceso\Programas_Tesis_Maestria\mascaras\';
+destpath = '.\Segmentaciones\';
 
 % Lee la imagen
 im1 = imread([path,filename]);
@@ -94,27 +94,37 @@ condition=true;
                                         [0 0 1],'Transparency',0.8);
 
         % Figura con las imagenes en gris, los boxplot e histogramas
-        figurasubplot=figure(1);
+%         figurasubplot=figure(1);
         
         
-        subplot(3,3,1), imshow(maskoverlay), title('Original')
-        subplot(3,3,2), imshow(maskdilateoverlay), title ('Dilatada')
-        subplot(3,3,3), imshow(maskerodeoverlay), title ('Reducida')
-        
-        subplot(3,3,4), boxplot(imzoom(mask==0)),
-        subplot(3,3,5), boxplot(imzoom(maskdilate==0)),
-        subplot(3,3,6), boxplot(imzoom(maskerode==0)),
-        
-        nbins=50; %Número de bins del histograma
-        
-        subplot(3,3,7), histogram(imzoom(mask==0),nbins),
-        subplot(3,3,8), histogram(imzoom(maskdilate==0),nbins),
-        subplot(3,3,9), histogram(imzoom(maskerode==0),nbins),
-        
-        saveas(figurasubplot,[destpath,filename(1:length(filename)-4),'_figura.png'])
+%         subplot(3,3,1), imshow(maskoverlay), title('Original')
+%         subplot(3,3,2), imshow(maskdilateoverlay), title ('Dilatada')
+%         subplot(3,3,3), imshow(maskerodeoverlay), title ('Reducida')
+%         
+%         subplot(3,3,4), boxplot(imzoom(mask==0)),
+%         subplot(3,3,5), boxplot(imzoom(maskdilate==0)),
+%         subplot(3,3,6), boxplot(imzoom(maskerode==0)),
+%         
+%         nbins=50; %Número de bins del histograma
+%         
+%         subplot(3,3,7), histogram(imzoom(mask==0),nbins),
+%         subplot(3,3,8), histogram(imzoom(maskdilate==0),nbins),
+%         subplot(3,3,9), histogram(imzoom(maskerode==0),nbins),
+%         
+%         saveas(figurasubplot,[destpath,filename(1:length(filename)-4),'_figura.png'])
         
         imoverl=labeloverlay(imzoom,double(mask),'Colormap',[0 0 1],'Transparency',0.8);
-
+        
+        side = 'Segmentación Izquierda o Derecha (Izquierda[1] / Derecha[0])';
+        condition_side = input(side);
+        if condition==1
+            disp("La segmentación es del lado izquierdo");
+            sidevar = 'Izq';
+        end
+        if condition==0
+            disp("La segmentación es del lado derecho");
+            sidevar = 'Der';
+        end
 
         prompt = 'Es correcta la segmentacion? Si[1]  No[0] ';
         condition=input(prompt);
@@ -125,7 +135,7 @@ condition=true;
     end
         
     % Nombre del archivo
-    filename = [filename(1:length(filename)-4),'b'];
+    filename = [filename(1:length(filename)-4),'_',sidevar];
 
     imwrite(maskoverlay,[destpath,filename,'imzoom.jpg'])
     imwrite(mask,[destpath,filename,'mask.jpg'])

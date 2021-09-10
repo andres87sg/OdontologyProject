@@ -114,7 +114,10 @@ condition=true;
         saveas(figurasubplot,[destpath,filename(1:length(filename)-4),'_figura.png'])
         
         imoverl=labeloverlay(imzoom,double(mask),'Colormap',[0 0 1],'Transparency',0.8);
-
+        
+        side = 'Es Izquierda o Derecha (Izquierda[1] / Derecha[0])';
+        
+        
 
         prompt = 'Es correcta la segmentacion? Si[1]  No[0] ';
         condition=input(prompt);
