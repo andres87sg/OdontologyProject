@@ -67,24 +67,13 @@ end
 
 %%
 
-for ind=1:length(listwholenames)/2-1
+for i=2:4
    
-    a=listwholenames{2*ind-1};
-    b=listwholenames{2*ind};
+    a=listwholenames{2*i-1};
+    b=listwholenames{2*i};
     
     disp(a)
     disp(b)
-    
-    try        
-    IoU = calcularIoU(a,b);
-    end
-    
-    nameimg = a(1:length(a)-14);
-    
-    IoUList{ind,1}=nameimg;
-    
-    IoUList{ind,2}=IoU;
-    
     
     
 end
@@ -93,11 +82,10 @@ end
 
 %%
 
- function IoU = calcularIoU(imname1,imname2)
+
 % Lee la imagen
-path = 'C:\Users\Andres\Desktop\Segmentaciones\';
-im1 = imread([path,imname1]);
-im2 = imread([path,imname2]);
+im1 = imread([path,'JUAN3_Izq_exp1_mask.jpg']);
+im2 = imread([path,'JUAN3_Izq_exp2_mask.jpg']);
 
 try
     im1 = rgb2gray(im1);
@@ -112,9 +100,9 @@ imBW1 = im1/max(max(im1));
 imBW2 = im3/max(max(im3));
 
 
-% figure, 
-% subplot(1,2,1), imshow(imBW1,[]), title ('Segm1')
-% subplot(1,2,2), imshow(imBW2,[]), title ('Segm2')
+figure, 
+subplot(1,2,1), imshow(imBW1,[]), title ('Segm1')
+subplot(1,2,2), imshow(imBW2,[]), title ('Segm2')
 
 intersec = imBW1 & imBW2;
 union = imBW1 | imBW2;
@@ -124,35 +112,33 @@ uni=sum(union(:));
 
 IoU = inter/uni;
 
-% disp('IoU:');
-% disp(IoU)
-% 
-% 
-% 
-% %%
-% green = [0 1 0];
-% black = [0 0 0];
-% cyan = [0 1 1];
-% blue = [0 0 1];
-% % red = [1 0 0];
-% 
-% kk(:,:,1)=imBW1*255;
-% kk(:,:,2)=imBW1*255;
-% kk(:,:,3)=imBW1*255;
-% 
-% imoverlay=labeloverlay(kk,imBW2,'Colormap',[blue;green],'Transparency',0.6);
-% 
-% 
-% 
-% figure(1), 
-% subplot(1,3,1), imshow(imBW1,[]), title ('Segm1')
-% subplot(1,3,2), imshow(imBW2,[]), title ('Segm2')
-% subplot(1,3,3), imshow(imoverlay,[]),
-% pp=['IoU: ','0.' int2str(IoU*100)]
-% % title(pp)
-% 
-% figure(2),
-% imshow(imoverlay)
+disp('IoU:');
+disp(IoU)
+
+
+
+%%
+green = [0 1 0];
+black = [0 0 0];
+cyan = [0 1 1];
+blue = [0 0 1];
+% red = [1 0 0];
+
+kk(:,:,1)=imBW1*255;
+kk(:,:,2)=imBW1*255;
+kk(:,:,3)=imBW1*255;
+
+imoverlay=labeloverlay(kk,imBW2,'Colormap',[blue;green],'Transparency',0.6);
+
+
+
+figure(1), 
+subplot(1,3,1), imshow(imBW1,[]), title ('Segm1')
+subplot(1,3,2), imshow(imBW2,[]), title ('Segm2')
+subplot(1,3,3), imshow(imoverlay,[]),
+pp=['IoU: ','0.' int2str(IoU*100)]
 % title(pp)
 
- end
+figure(2),
+imshow(imoverlay)
+title(pp)
