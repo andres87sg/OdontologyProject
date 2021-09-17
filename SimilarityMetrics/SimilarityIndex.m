@@ -76,7 +76,7 @@ for ind=1:length(listwholenames)/2-1
     disp(b)
     
     try        
-    IoU = calcularIoU(a,b);
+    [IoU,Dice] = calcularIoU(a,b);
     end
     
     nameimg = a(1:length(a)-14);
@@ -84,6 +84,7 @@ for ind=1:length(listwholenames)/2-1
     IoUList{ind,1}=nameimg;
     
     IoUList{ind,2}=IoU;
+    IoUList{ind,3}=Dice;
     
     
     
@@ -93,7 +94,7 @@ end
 
 %%
 
- function IoU = calcularIoU(imname1,imname2)
+ function [IoU,Dice] = calcularIoU(imname1,imname2)
 % Lee la imagen
 path = 'C:\Users\Andres\Desktop\Segmentaciones\';
 im1 = imread([path,imname1]);
@@ -123,6 +124,7 @@ inter=sum(intersec(:));
 uni=sum(union(:));
 
 IoU = inter/uni;
+Dice = 2*IoU/(IoU+1);
 
 % disp('IoU:');
 % disp(IoU)
