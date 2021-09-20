@@ -4,7 +4,7 @@
 % github:   asandino87
 % Script:   Segmentación de imagenes de Rx 
 % Versión:  2.0
-% Fecha:    22/07/2021
+% Fecha:    10/09/2021
 % Matlab versión 2020b
 %%%%%%%%%%%%%%%%%%%%%
 a=0;
