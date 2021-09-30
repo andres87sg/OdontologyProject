@@ -12,7 +12,7 @@ pathmaskIzq = 'C:\Users\Andres\Documents\ProyectoInvestigacion\DatasetOdont\Segm
 pathmaskDer = 'C:\Users\Andres\Documents\ProyectoInvestigacion\DatasetOdont\SegmDer\';
 path = 'C:\Users\Andres\Documents\ProyectoInvestigacion\DatasetOdont\ImagenesOriginales\';
 
-imname = 'SERGIO3';
+imname = 'JACSON1';
 
 maskname1 = [imname ,'_Izq_mask.jpg'];
 maskname2 = [imname ,'_Der_mask.jpg'];
@@ -29,6 +29,15 @@ mask1 = mask1/max(mask1(:));
 mask2 = mask2/max(mask2(:));
 
 %%
+green = [0 1 0];
+black = [0 0 0];
+cyan = [0 1 1];
+blue = [0 0 1];
+
+imoverlayA=labeloverlay(im1,mask1,'Colormap',[blue],'Transparency',0.6);
+imoverlayB=labeloverlay(imoverlayA,mask2,'Colormap',[green],'Transparency',0.6);
+
+%%
 
 data1 = double(im1(mask1==1));
 data2 = double(im1(mask2==1));
@@ -39,16 +48,17 @@ data2 = double(im1(mask2==1));
 % x2 = randn(1440,1);
 % x3 = randn(500, 1);
 
-r1 = unique(randi([0 12000],1,370));
-r2 = unique(randi([0 12000],1,370));
-data1=data1(r1);
-data2=data2(r2);
+% r1 = unique(randi([0 12000],1,370));
+% r2 = unique(randi([0 12000],1,370));
+% data1=data1(r1);
+% data2=data2(r2);
 
 %%
 
 x = [data1; data2];
 g = [zeros(length(data1), 1); ones(length(data2), 1)];
-boxplot(x, g)
+figure, boxplot(x, g,'labels',{'Izquierda','Derecha'}),
+
 
 
 [h,pval] = ttest2(data1,data2);

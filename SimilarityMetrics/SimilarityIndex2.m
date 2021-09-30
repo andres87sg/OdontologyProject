@@ -4,11 +4,13 @@ close all;
 
 
 % Ruta del directorio de destino
-path = 'C:\Users\Andres\Desktop\Segmentaciones\';
+path = 'C:\Users\Andres\Documents\ProyectoInvestigacion\DatasetOdont\Segmentaciones\';
+path2 = 'C:\Users\Andres\Documents\ProyectoInvestigacion\DatasetOdont\ImagenesOriginales\';
 
+imor = imread([path2,'JACSON1.png']); 
 % Lee la imagen
-im1 = imread([path,'JUAN3_Izq_exp1_mask.jpg']);
-im2 = imread([path,'JUAN3_Izq_exp2_mask.jpg']);
+im1 = imread([path,'JACSON1_Izq_exp1_mask.jpg']);
+im2 = imread([path,'JACSON1_Izq_exp2_mask.jpg']);
 
 try
     im1 = rgb2gray(im1);
@@ -59,9 +61,15 @@ figure(1),
 subplot(1,3,1), imshow(imBW1,[]), title ('Segm1')
 subplot(1,3,2), imshow(imBW2,[]), title ('Segm2')
 subplot(1,3,3), imshow(imoverlay,[]),
-pp=['IoU: ','0.' int2str(IoU*100)]
+pp = ['IoU: ','0.' int2str(IoU*100)];
 % title(pp)
 
 figure(2),
 imshow(imoverlay)
 title(pp)
+
+%%
+
+imoverlayA=labeloverlay(imor,imBW1,'Colormap',[blue],'Transparency',0.6);
+imoverlayB=labeloverlay(imoverlayA,imBW2,'Colormap',[green],'Transparency',0.6);
+figure, imshow(imoverlayB,[])
